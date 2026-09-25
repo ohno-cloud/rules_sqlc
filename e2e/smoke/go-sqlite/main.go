@@ -2,11 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/dbanetto/rules_sqlc/e2e/smoke/go-sqlite/db"
+
+	"github.com/ohno-cloud/rules_sqlc/e2e/smoke/go-sqlite/db_dirs"
 )
 
 func main() {
-	author := db.Author{}
-
-	fmt.Printf("%v", author)
+	fmt.Printf("%v", db_dirs.Author{})
 }

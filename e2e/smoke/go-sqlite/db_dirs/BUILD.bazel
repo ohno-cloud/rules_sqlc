@@ -1,0 +1,39 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+load("@rules_sqlc//sqlc:defs.bzl", "sqlc_generate_go")
+
+filegroup(
+    name = "migrations",
+    srcs = glob(["migrations/*.sql"]),
+)
+
+filegroup(
+    name = "queries",
+    srcs = glob(["queries/*.sql"]),
+)
+
+sqlc_generate_go(
+    name = "generate",
+    engine = "sqlite",
+    package = "db_dirs",
+    queries = [":queries"],
+    schema = [":migrations"],
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "db_dirs",
+    srcs = [
+        "embed.go",
+        ":generate",
+    ],
+    embedsrcs = ["migrations/001_create_authors.sql"],
+    importpath = "github.com/ohno-cloud/rules_sqlc/e2e/smoke/go-sqlite/db_dirs",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "db_dirs_test",
+    srcs = ["embed_test.go"],
+    embed = [":db_dirs"],
+    visibility = ["//visibility:public"],
+)

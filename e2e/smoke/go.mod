@@ -1,3 +1,3 @@
-module github.com/dbanetto/rules_sqlc/e2e/smoke
+module github.com/ohno-cloud/rules_sqlc/e2e/smoke
 
-go 1.23.1
+go 1.27.1

@@ -1,5 +1,39 @@
 # Bazel rules for [`sqlc`](https://github.com/sqlc-dev/sqlc)
 
+The bundled toolchain supports `sqlc` v1.31.1 and Bazel 9.
+
+`sqlc_generate_go` accepts individual SQL files and directory filegroups through both `schema` and
+`queries`. Directory inputs should enumerate all SQL files with `glob`, allowing `sqlc` to read the
+directory while keeping every input declared to Bazel. This supports
+[`sql-migrate`](https://github.com/rubenv/sql-migrate) migration layouts:
+
+```starlark
+filegroup(
+    name = "migrations",
+    srcs = glob(["migrations/*.sql"]),
+)
+
+sqlc_generate_go(
+    name = "db",
+    engine = "postgresql",
+    package = "db",
+    schema = [":migrations"],
+    queries = [":queries"],
+)
+```
+
+Individual files can be mixed with filegroups in either attribute:
+
+```starlark
+sqlc_generate_go(
+    name = "db",
+    engine = "postgresql",
+    package = "db",
+    schema = [":base.sql", ":migrations"],
+    queries = [":authors.sql", ":report_queries"],
+)
+```
+
 ## Installation
 
 From the release you wish to use:

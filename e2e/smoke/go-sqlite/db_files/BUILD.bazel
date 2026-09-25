@@ -1,0 +1,10 @@
+load("@rules_sqlc//sqlc:defs.bzl", "sqlc_generate_go")
+
+sqlc_generate_go(
+    name = "generate",
+    engine = "sqlite",
+    package = "db_files",
+    queries = [":authors.sql"],
+    schema = [":schema.sql"],
+    visibility = ["//visibility:public"],
+)

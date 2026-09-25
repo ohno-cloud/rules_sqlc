@@ -5,14 +5,12 @@ Add a basic smoke-test target below.
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 
-# Replace with a usage of your rule/macro
-filegroup(name = "empty")
-
 build_test(
     name = "smoke_test",
     targets = [
-        # targets you add above
-        ":empty",
+        "//go-sqlite/db_dirs:generate",
+        "//go-sqlite/db_dirs:db_dirs_test",
+        "//go-sqlite/db_files:generate",
     ],
 )
 

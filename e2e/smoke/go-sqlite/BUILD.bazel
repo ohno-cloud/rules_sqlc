@@ -3,9 +3,9 @@ load("@rules_go//go:def.bzl", "go_binary", "go_library")
 go_library(
     name = "go-sqlite_lib",
     srcs = ["main.go"],
-    importpath = "github.com/dbanetto/rules_sqlc/e2e/smoke/go-sqlite",
+    importpath = "github.com/ohno-cloud/rules_sqlc/e2e/smoke/go-sqlite",
     visibility = ["//visibility:private"],
-    deps = ["//go-sqlite/db"],
+    deps = ["//go-sqlite/db_dirs"],
 )
 
 go_binary(
