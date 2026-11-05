@@ -1,9 +1,12 @@
+"""This module provides the sqlc_generate_* rules to generate source code.
+"""
+
 def _sqlc_generate_go(ctx):
     toolchain = ctx.toolchains["//sqlc:toolchain_type"]
     schema_files = ctx.files.schema
     query_files = ctx.files.queries
-    schema_paths = _sqlc_paths(ctx.attr.schema, schema_files)
-    query_paths = _sqlc_paths(ctx.attr.queries, query_files)
+    schema_paths = _sqlc_paths(ctx.attr.schema)
+    query_paths = _sqlc_paths(ctx.attr.queries)
 
     out_db = ctx.actions.declare_file(ctx.label.name + "_db.go")
     out_models = ctx.actions.declare_file(ctx.label.name + "_models.go")
@@ -94,7 +97,7 @@ sqlc_generate_go = rule(
     toolchains = ["//sqlc:toolchain_type"],
 )
 
-def _sqlc_paths(targets, files):
+def _sqlc_paths(targets):
     paths = []
     for target in targets:
         target_files = target[DefaultInfo].files.to_list()
