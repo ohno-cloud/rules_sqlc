@@ -42,7 +42,7 @@ _ATTRS = {
 def _sqlc_repo_impl(repository_ctx):
     url = "https://github.com/sqlc-dev/sqlc/releases/download/v{0}/sqlc_{0}_{1}.tar.gz".format(
         repository_ctx.attr.sqlc_version,
-        repository_ctx.attr.platform.replace('-', '_'),
+        repository_ctx.attr.platform.replace("-", "_"),
     )
     repository_ctx.download_and_extract(
         url = url,
