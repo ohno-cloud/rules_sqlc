@@ -21,7 +21,7 @@ jobs:
     uses: bazel-contrib/.github/.github/workflows/bazel.yaml@e5ab8fc4c23cb13783fad499e8bd865fd9f6d669 # 7.6.0
     with:
       bazel_versions: |
-        ["8.x", "9.x"]
+        ["9.x"]
       folders: |
         [
           ".",
